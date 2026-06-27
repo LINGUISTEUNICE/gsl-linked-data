@@ -204,4 +204,4 @@ matching the license of the source data (Fragkiadakis et al., 2021).
 
 ## Contact
 
-[Your name] — [your email or institutional affiliation]
+[Eunice Esi Essuman] — [essumaneeunice@gmail.com]
