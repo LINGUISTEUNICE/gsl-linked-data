@@ -205,3 +205,5 @@ matching the license of the source data (Fragkiadakis et al., 2021).
 ## Contact
 
 [Eunice Esi Essuman] — [essumaneeunice@gmail.com]
+# READ MORE 
+https://syntax2systems.medium.com/sign-languages-dont-exist-on-the-semantic-web-i-tried-to-change-that-for-ghanaian-sign-language-98cb8219ac11 
