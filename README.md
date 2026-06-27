@@ -1,5 +1,5 @@
 # GSL Linked Data — Ghanaian Sign Language as Linked Open Data (Pilot)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20961293.svg)](https://doi.org/10.5281/zenodo.20961293)
 A pilot project representing 18 signs from **Ghanaian Sign Language (GSL)**
 as RDF Linked Data, using [OntoLex-Lemon](https://www.w3.org/community/ontolex/)
 and the [Declerck (2022) sign language ontology](https://aclanthology.org/2022.lrec-1.423/)
