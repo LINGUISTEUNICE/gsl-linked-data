@@ -1,0 +1,637 @@
+# ===========================================================================
+# GSL Linked Data — Ghanaian Sign Language Lexicon (pilot, 18 signs)
+# ===========================================================================
+# Author      : [Your name]
+# Date        : 2026
+# License     : CC BY 4.0
+# Source data : Fragkiadakis, Nyst & Nyarko (2021). Ghanaian Sign Language
+#               Lexicon. Zenodo. https://doi.org/10.5281/zenodo.4533753
+#               (signs FATHER and HAPPY: author's own GSL knowledge,
+#               cross-referenced against GNAD dictionary)
+# Ontologies  : OntoLex-Lemon  https://www.w3.org/community/ontolex/
+#               Declerck (2022) sl-onto  https://github.com/Declerck/sl-onto
+# Description : A pilot RDF/Linked Data representation of 18 GSL signs,
+#               modelling manual and non-manual phonological features
+#               using the sldc ontology and OntoLex-Lemon. The first
+#               Linked Data treatment of Ghanaian Sign Language.
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# PREFIX DECLARATIONS
+# ---------------------------------------------------------------------------
+
+@prefix gsl:     <https://example.org/gsl/> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix lexinfo: <http://www.lexinfo.net/ontology/3.0/lexinfo#> .
+@prefix sldc:    <https://github.com/Declerck/sl-onto#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix void:    <http://rdfs.org/ns/void#> .
+
+# ---------------------------------------------------------------------------
+# DATASET DESCRIPTION
+# ---------------------------------------------------------------------------
+
+<https://example.org/gsl/>
+    a void:Dataset , owl:Ontology ;
+    dc:title "Ghanaian Sign Language Linked Data — Pilot Dataset"@en ;
+    dc:description """A pilot Linked Data representation of 18 signs from
+    Ghanaian Sign Language (GSL), modelling manual and non-manual phonological
+    features using OntoLex-Lemon and the Declerck (2022) sign language
+    ontology (sldc). This is the first RDF treatment of GSL vocabulary."""@en ;
+    dc:creator "Your Name"@en ;
+    dc:language "gse" ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:created "2026"^^xsd:gYear ;
+    dct:source <https://doi.org/10.5281/zenodo.4533753> ;
+    rdfs:seeAlso <https://aclanthology.org/2022.lrec-1.423/> .
+
+# ---------------------------------------------------------------------------
+# GSL-SPECIFIC EXTENSIONS
+# (features not covered by sldc or needing local values)
+# ---------------------------------------------------------------------------
+
+gsl:iconicityHigh    a owl:NamedIndividual ; rdfs:label "high iconicity"@en .
+gsl:iconicityMedium  a owl:NamedIndividual ; rdfs:label "medium iconicity"@en .
+gsl:iconicityLow     a owl:NamedIndividual ; rdfs:label "low iconicity"@en .
+
+gsl:hasIconicity     a owl:ObjectProperty ;
+    rdfs:label "has iconicity"@en ;
+    rdfs:comment "Relates a sign to its iconicity rating"@en .
+
+gsl:hasNonManualMarker a owl:ObjectProperty ;
+    rdfs:label "has non-manual marker"@en ;
+    rdfs:comment "Relates a sign to its non-manual annotation tier"@en .
+
+gsl:NonManualMarker  a owl:Class ;
+    rdfs:label "Non-manual marker"@en ;
+    rdfs:comment "A non-manual phonological feature: facial expression, mouth pattern, head movement"@en .
+
+gsl:FacialExpression a owl:Class ; rdfs:subClassOf gsl:NonManualMarker ;
+    rdfs:label "Facial expression"@en .
+gsl:MouthPattern     a owl:Class ; rdfs:subClassOf gsl:NonManualMarker ;
+    rdfs:label "Mouth pattern"@en .
+gsl:HeadMovement     a owl:Class ; rdfs:subClassOf gsl:NonManualMarker ;
+    rdfs:label "Head movement"@en .
+
+gsl:sourceZenodo     a owl:NamedIndividual ;
+    rdfs:label "Fragkiadakis, Nyst & Nyarko (2021) GSL Lexicon"@en ;
+    rdfs:seeAlso <https://doi.org/10.5281/zenodo.4533753> .
+
+gsl:sourceOwnKnowledge a owl:NamedIndividual ;
+    rdfs:label "Author's own GSL knowledge, cross-ref GNAD dictionary"@en .
+
+
+# ===========================================================================
+# SIGNS — each modelled as an ontolex:LexicalEntry with:
+#   - ontolex:canonicalForm  → the written gloss
+#   - sldc:hasPhonology      → manual feature node (sldc:Manual)
+#   - gsl:hasNonManualMarker → non-manual feature node (gsl:NonManualMarker)
+#   - gsl:hasIconicity       → iconicity rating
+#   - prov:wasDerivedFrom    → data source
+# ===========================================================================
+
+
+# ---------------------------------------------------------------------------
+# 1. MOTHER
+# ---------------------------------------------------------------------------
+
+gsl:entry_MOTHER
+    a ontolex:LexicalEntry ;
+    rdfs:label "MOTHER"@en ;
+    ontolex:canonicalForm gsl:form_MOTHER ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    sldc:hasPhonology gsl:phon_MOTHER ;
+    gsl:hasNonManualMarker gsl:nmm_MOTHER ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_MOTHER
+    a ontolex:Form ;
+    ontolex:writtenRep "MOTHER"@en .
+
+gsl:phon_MOTHER
+    a sldc:Manual ;
+    sldc:handshape "open-5 hand — all fingers extended, spread" ;
+    sldc:location "chest / sternum" ;
+    sldc:orientation "palm toward body" ;
+    sldc:movement "static bilateral hold, both hands contact chest" ;
+    sldc:handedness "two-handed" .
+
+gsl:nmm_MOTHER
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "neutral to warm" ;
+    gsl:mouthPattern "mouth pattern: 'mum'" .
+
+
+# ---------------------------------------------------------------------------
+# 2. FATHER  (source: author's own GSL knowledge)
+# ---------------------------------------------------------------------------
+
+gsl:entry_FATHER
+    a ontolex:LexicalEntry ;
+    rdfs:label "FATHER"@en ;
+    ontolex:canonicalForm gsl:form_FATHER ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    sldc:hasPhonology gsl:phon_FATHER ;
+    gsl:hasNonManualMarker gsl:nmm_FATHER ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceOwnKnowledge .
+
+gsl:form_FATHER
+    a ontolex:Form ;
+    ontolex:writtenRep "FATHER"@en .
+
+gsl:phon_FATHER
+    a sldc:Manual ;
+    sldc:handshape "open-5 hand — all fingers extended" ;
+    sldc:location "forehead / temple" ;
+    sldc:orientation "palm toward head" ;
+    sldc:movement "static hold or single tap at forehead" ;
+    sldc:handedness "two-handed" .
+
+gsl:nmm_FATHER
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "neutral" ;
+    gsl:mouthPattern "mouth pattern: 'dad'" .
+
+
+# ---------------------------------------------------------------------------
+# 3. WATER
+# ---------------------------------------------------------------------------
+
+gsl:entry_WATER
+    a ontolex:LexicalEntry ;
+    rdfs:label "WATER"@en ;
+    ontolex:canonicalForm gsl:form_WATER ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    sldc:hasPhonology gsl:phon_WATER ;
+    gsl:hasNonManualMarker gsl:nmm_WATER ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_WATER
+    a ontolex:Form ;
+    ontolex:writtenRep "WATER"@en .
+
+gsl:phon_WATER
+    a sldc:Manual ;
+    sldc:handshape "W-hand — index, middle, ring fingers extended" ;
+    sldc:location "mouth / chin area" ;
+    sldc:orientation "palm outward" ;
+    sldc:movement "taps chin twice, repeated internal movement" ;
+    sldc:handedness "one-handed" .
+
+gsl:nmm_WATER
+    a gsl:NonManualMarker ;
+    gsl:mouthPattern "drinking mouth action — lips pursed" .
+
+
+# ---------------------------------------------------------------------------
+# 4. EAT
+# ---------------------------------------------------------------------------
+
+gsl:entry_EAT
+    a ontolex:LexicalEntry ;
+    rdfs:label "EAT"@en ;
+    ontolex:canonicalForm gsl:form_EAT ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    sldc:hasPhonology gsl:phon_EAT ;
+    gsl:hasNonManualMarker gsl:nmm_EAT ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_EAT
+    a ontolex:Form ;
+    ontolex:writtenRep "EAT"@en .
+
+gsl:phon_EAT
+    a sldc:Manual ;
+    sldc:handshape "flat-O / bunched hand — fingertips meet thumb" ;
+    sldc:location "mouth" ;
+    sldc:orientation "palm toward mouth" ;
+    sldc:movement "repeated path toward mouth, depicting eating action" ;
+    sldc:handedness "one-handed" .
+
+gsl:nmm_EAT
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "neutral to chewing" ;
+    gsl:mouthPattern "chewing mouth movement — obligatory for this sign" .
+
+
+# ---------------------------------------------------------------------------
+# 5. SLEEP
+# ---------------------------------------------------------------------------
+
+gsl:entry_SLEEP
+    a ontolex:LexicalEntry ;
+    rdfs:label "SLEEP"@en ;
+    ontolex:canonicalForm gsl:form_SLEEP ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    sldc:hasPhonology gsl:phon_SLEEP ;
+    gsl:hasNonManualMarker gsl:nmm_SLEEP ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_SLEEP
+    a ontolex:Form ;
+    ontolex:writtenRep "SLEEP"@en .
+
+gsl:phon_SLEEP
+    a sldc:Manual ;
+    sldc:handshape "open-B both hands — flat, fingers together" ;
+    sldc:location "face / cheek area" ;
+    sldc:orientation "palms facing face" ;
+    sldc:movement "hands converge toward face; head tilts laterally" ;
+    sldc:handedness "two-handed" .
+
+gsl:nmm_SLEEP
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "eyes closed or lowered — semantically obligatory" ;
+    gsl:headMovement "lateral head tilt" .
+
+
+# ---------------------------------------------------------------------------
+# 6. HAPPY  (source: author's own GSL knowledge)
+# ---------------------------------------------------------------------------
+
+gsl:entry_HAPPY
+    a ontolex:LexicalEntry ;
+    rdfs:label "HAPPY"@en ;
+    ontolex:canonicalForm gsl:form_HAPPY ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    sldc:hasPhonology gsl:phon_HAPPY ;
+    gsl:hasNonManualMarker gsl:nmm_HAPPY ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceOwnKnowledge .
+
+gsl:form_HAPPY
+    a ontolex:Form ;
+    ontolex:writtenRep "HAPPY"@en .
+
+gsl:phon_HAPPY
+    a sldc:Manual ;
+    sldc:handshape "open-B / 5-hand both — fingers extended and spread" ;
+    sldc:location "chest" ;
+    sldc:orientation "palms toward chest" ;
+    sldc:movement "upward circular movement on chest" ;
+    sldc:handedness "two-handed" .
+
+gsl:nmm_HAPPY
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "smile, raised cheeks — semantically obligatory, contrastive with SAD" .
+
+
+# ---------------------------------------------------------------------------
+# 7. SAD
+# ---------------------------------------------------------------------------
+
+gsl:entry_SAD
+    a ontolex:LexicalEntry ;
+    rdfs:label "SAD"@en ;
+    ontolex:canonicalForm gsl:form_SAD ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    sldc:hasPhonology gsl:phon_SAD ;
+    gsl:hasNonManualMarker gsl:nmm_SAD ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_SAD
+    a ontolex:Form ;
+    ontolex:writtenRep "SAD"@en .
+
+gsl:phon_SAD
+    a sldc:Manual ;
+    sldc:handshape "open-5 hand both — all fingers extended, spread" ;
+    sldc:location "face / cheeks" ;
+    sldc:orientation "palms toward face" ;
+    sldc:movement "downward bilateral movement along cheeks" ;
+    sldc:handedness "two-handed" .
+
+gsl:nmm_SAD
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "downturned mouth, furrowed brow — semantically contrastive with HAPPY" ;
+    gsl:headMovement "slight downward head tilt" .
+
+
+# ---------------------------------------------------------------------------
+# 8. SCHOOL
+# ---------------------------------------------------------------------------
+
+gsl:entry_SCHOOL
+    a ontolex:LexicalEntry ;
+    rdfs:label "SCHOOL"@en ;
+    ontolex:canonicalForm gsl:form_SCHOOL ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    sldc:hasPhonology gsl:phon_SCHOOL ;
+    gsl:hasIconicity gsl:iconicityLow ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_SCHOOL
+    a ontolex:Form ;
+    ontolex:writtenRep "SCHOOL"@en .
+
+gsl:phon_SCHOOL
+    a sldc:Manual ;
+    sldc:handshape "open-B both hands — flat, fingers together" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palms facing each other" ;
+    sldc:movement "repeated clap-like movement — no path movement" ;
+    sldc:handedness "two-handed" .
+
+
+# ---------------------------------------------------------------------------
+# 9. BOOK
+# ---------------------------------------------------------------------------
+
+gsl:entry_BOOK
+    a ontolex:LexicalEntry ;
+    rdfs:label "BOOK"@en ;
+    ontolex:canonicalForm gsl:form_BOOK ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    sldc:hasPhonology gsl:phon_BOOK ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_BOOK
+    a ontolex:Form ;
+    ontolex:writtenRep "BOOK"@en .
+
+gsl:phon_BOOK
+    a sldc:Manual ;
+    sldc:handshape "open-B both hands — flat, fingers together, palms facing up" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palms facing up, opening outward" ;
+    sldc:movement "single opening movement — directly depicts open book" ;
+    sldc:handedness "two-handed" .
+
+
+# ---------------------------------------------------------------------------
+# 10. WALK
+# ---------------------------------------------------------------------------
+
+gsl:entry_WALK
+    a ontolex:LexicalEntry ;
+    rdfs:label "WALK"@en ;
+    ontolex:canonicalForm gsl:form_WALK ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    sldc:hasPhonology gsl:phon_WALK ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_WALK
+    a ontolex:Form ;
+    ontolex:writtenRep "WALK"@en .
+
+gsl:phon_WALK
+    a sldc:Manual ;
+    sldc:handshape "V-hand — index and middle fingers extended (classifier: legs)" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palm down, fingers pointing forward" ;
+    sldc:movement "alternating finger movement depicting leg motion" ;
+    sldc:handedness "one-handed" .
+
+
+# ---------------------------------------------------------------------------
+# 11. WHERE  (grammatical — WH-question)
+# ---------------------------------------------------------------------------
+
+gsl:entry_WHERE
+    a ontolex:LexicalEntry ;
+    rdfs:label "WHERE"@en ;
+    ontolex:canonicalForm gsl:form_WHERE ;
+    lexinfo:partOfSpeech lexinfo:questionPronoun ;
+    sldc:hasPhonology gsl:phon_WHERE ;
+    gsl:hasNonManualMarker gsl:nmm_WHERE ;
+    gsl:hasIconicity gsl:iconicityLow ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_WHERE
+    a ontolex:Form ;
+    ontolex:writtenRep "WHERE"@en .
+
+gsl:phon_WHERE
+    a sldc:Manual ;
+    sldc:handshape "1-hand — index finger extended" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palm outward" ;
+    sldc:movement "repeated lateral wagging movement" ;
+    sldc:handedness "one-handed" .
+
+gsl:nmm_WHERE
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "raised eyebrows — WH-question grammatical marker, obligatory" ;
+    gsl:headMovement "slight forward head tilt" .
+
+
+# ---------------------------------------------------------------------------
+# 12. WHAT  (grammatical — WH-question)
+# ---------------------------------------------------------------------------
+
+gsl:entry_WHAT
+    a ontolex:LexicalEntry ;
+    rdfs:label "WHAT"@en ;
+    ontolex:canonicalForm gsl:form_WHAT ;
+    lexinfo:partOfSpeech lexinfo:questionPronoun ;
+    sldc:hasPhonology gsl:phon_WHAT ;
+    gsl:hasNonManualMarker gsl:nmm_WHAT ;
+    gsl:hasIconicity gsl:iconicityLow ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_WHAT
+    a ontolex:Form ;
+    ontolex:writtenRep "WHAT"@en .
+
+gsl:phon_WHAT
+    a sldc:Manual ;
+    sldc:handshape "open-5 or bent-B — fingers spread or loosely bent" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palm facing up" ;
+    sldc:movement "repeated small lateral movement" ;
+    sldc:handedness "one-handed" .
+
+gsl:nmm_WHAT
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "raised eyebrows — WH-question grammatical marker, shared with WHERE" ;
+    gsl:headMovement "slight forward head tilt" .
+
+
+# ---------------------------------------------------------------------------
+# 13. NO  (grammatical — negation)
+# ---------------------------------------------------------------------------
+
+gsl:entry_NO
+    a ontolex:LexicalEntry ;
+    rdfs:label "NO"@en ;
+    ontolex:canonicalForm gsl:form_NO ;
+    lexinfo:partOfSpeech lexinfo:adverb ;
+    sldc:hasPhonology gsl:phon_NO ;
+    gsl:hasNonManualMarker gsl:nmm_NO ;
+    gsl:hasIconicity gsl:iconicityMedium ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_NO
+    a ontolex:Form ;
+    ontolex:writtenRep "NO"@en .
+
+gsl:phon_NO
+    a sldc:Manual ;
+    sldc:handshape "index and middle fingers extended — scissors shape" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palm outward" ;
+    sldc:movement "lateral wagging then snap closed" ;
+    sldc:handedness "one-handed" .
+
+gsl:nmm_NO
+    a gsl:NonManualMarker ;
+    gsl:headMovement "head shake — grammatical negation marker, contrastive with YES" .
+
+
+# ---------------------------------------------------------------------------
+# 14. YES  (grammatical — affirmation)
+# ---------------------------------------------------------------------------
+
+gsl:entry_YES
+    a ontolex:LexicalEntry ;
+    rdfs:label "YES"@en ;
+    ontolex:canonicalForm gsl:form_YES ;
+    lexinfo:partOfSpeech lexinfo:adverb ;
+    sldc:hasPhonology gsl:phon_YES ;
+    gsl:hasNonManualMarker gsl:nmm_YES ;
+    gsl:hasIconicity gsl:iconicityMedium ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_YES
+    a ontolex:Form ;
+    ontolex:writtenRep "YES"@en .
+
+gsl:phon_YES
+    a sldc:Manual ;
+    sldc:handshape "S-hand — closed fist" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palm facing sideward" ;
+    sldc:movement "nodding / bobbing movement" ;
+    sldc:handedness "one-handed" .
+
+gsl:nmm_YES
+    a gsl:NonManualMarker ;
+    gsl:headMovement "head nod — grammatical affirmation marker, contrastive with NO" .
+
+
+# ---------------------------------------------------------------------------
+# 15. GHANA
+# ---------------------------------------------------------------------------
+
+gsl:entry_GHANA
+    a ontolex:LexicalEntry ;
+    rdfs:label "GHANA"@en ;
+    ontolex:canonicalForm gsl:form_GHANA ;
+    lexinfo:partOfSpeech lexinfo:properNoun ;
+    sldc:hasPhonology gsl:phon_GHANA ;
+    gsl:hasIconicity gsl:iconicityLow ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_GHANA
+    a ontolex:Form ;
+    ontolex:writtenRep "GHANA"@en .
+
+gsl:phon_GHANA
+    a sldc:Manual ;
+    sldc:handshape "G-hand — initialized sign, index finger and thumb extended" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palm outward" ;
+    sldc:movement "single arc path movement" ;
+    sldc:handedness "one-handed" .
+
+
+# ---------------------------------------------------------------------------
+# 16. WORK
+# ---------------------------------------------------------------------------
+
+gsl:entry_WORK
+    a ontolex:LexicalEntry ;
+    rdfs:label "WORK"@en ;
+    ontolex:canonicalForm gsl:form_WORK ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    sldc:hasPhonology gsl:phon_WORK ;
+    gsl:hasIconicity gsl:iconicityMedium ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_WORK
+    a ontolex:Form ;
+    ontolex:writtenRep "WORK"@en .
+
+gsl:phon_WORK
+    a sldc:Manual ;
+    sldc:handshape "S-hand both — closed fist, dominant on top of non-dominant" ;
+    sldc:location "neutral space" ;
+    sldc:orientation "palms facing down" ;
+    sldc:movement "alternating downward tapping of wrists" ;
+    sldc:handedness "two-handed" .
+
+
+# ---------------------------------------------------------------------------
+# 17. MONEY
+# ---------------------------------------------------------------------------
+
+gsl:entry_MONEY
+    a ontolex:LexicalEntry ;
+    rdfs:label "MONEY"@en ;
+    ontolex:canonicalForm gsl:form_MONEY ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    sldc:hasPhonology gsl:phon_MONEY ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_MONEY
+    a ontolex:Form ;
+    ontolex:writtenRep "MONEY"@en .
+
+gsl:phon_MONEY
+    a sldc:Manual ;
+    sldc:handshape "flat-O / bunched hand — fingertips touching thumb" ;
+    sldc:location "neutral space, palm-up base hand" ;
+    sldc:orientation "palm facing up" ;
+    sldc:movement "fingertips rub against palm repeatedly — gestural origin" ;
+    sldc:handedness "one-handed" .
+
+
+# ---------------------------------------------------------------------------
+# 18. THANK YOU
+# ---------------------------------------------------------------------------
+
+gsl:entry_THANKYOU
+    a ontolex:LexicalEntry ;
+    rdfs:label "THANK YOU"@en ;
+    ontolex:canonicalForm gsl:form_THANKYOU ;
+    lexinfo:partOfSpeech lexinfo:interjection ;
+    sldc:hasPhonology gsl:phon_THANKYOU ;
+    gsl:hasNonManualMarker gsl:nmm_THANKYOU ;
+    gsl:hasIconicity gsl:iconicityHigh ;
+    prov:wasDerivedFrom gsl:sourceZenodo .
+
+gsl:form_THANKYOU
+    a ontolex:Form ;
+    ontolex:writtenRep "THANK-YOU"@en .
+
+gsl:phon_THANKYOU
+    a sldc:Manual ;
+    sldc:handshape "open-B / flat hand — all fingers extended, together" ;
+    sldc:location "mouth / chin area" ;
+    sldc:orientation "palm toward face, fingers pointing upward" ;
+    sldc:movement "single outward path arc from chin toward interlocutor" ;
+    sldc:handedness "one-handed" .
+
+gsl:nmm_THANKYOU
+    a gsl:NonManualMarker ;
+    gsl:facialExpression "smile, gratitude expression" ;
+    gsl:mouthPattern "lips slightly open — 'thank' mouth movement" .
+
+# ===========================================================================
+# END OF FILE
+# ===========================================================================
